@@ -1,0 +1,42 @@
+<!DOCTYPE html>                                                                 
+   <head>                                                                       
+    <title>{{ title }}</title>                                                  
+    <style type="text/css">                                                     
+        body {                                                                  
+            padding: 0;                                                         
+            margin: 0;                                                          
+        }                                                                       
+        .large_button {                                                         
+            /*position: absolute;*/
+            float: left;
+            width: 49%;
+            height: {{ 100 / num_channels }}%;                                                        
+            text-align: center;                                                 
+            text-decoration: none;                                              
+            font-size: 1000%;
+            /*border-right: 1px dotted #333;*/
+        }                                                                       
+        .on {                                                                   
+            background-color: #fbf09a;                                          
+            color: rgb(223, 204, 103);                                          
+            text-shadow: 1px 1px 10px #5C4E17;                                  
+        }                                                                       
+        .off {                                                                  
+            background-color: #1e170b;                                          
+            top: 50%;                                                           
+            color: rgb(83, 71, 48);                                             
+            text-shadow: 1px 1px 10px #000000;                                  
+        }                                                                       
+    </style>                                                                    
+    </head>                                                                     
+    <body>
+        {% for channel in channels %}
+        <div class="large_button">                                                                    
+            <a href="/{{ channel }}/on" class="on">{{ channel }} - ON</a>
+        </div>                                       
+        <div class="large_button">
+            <a href="/{{ channel }}/off" class="off">{{ channel }} - OFF</a>
+        </div>
+        {% endfor %}
+    </body>                                                                     
+</html>
