@@ -5,14 +5,14 @@ from robot_brain.gpio_pin import GPIOPin
 
 app = Flask(__name__)
 on_pins = {
-    '1': GPIOPin(18),
-    '2': GPIOPin(23),
-    '3': GPIOPin(24),
+    'Telescope': GPIOPin(18),
+    'Pixar': GPIOPin(23),
+    'Fountain': GPIOPin(24),
 }
 off_pins = {
-    '1': GPIOPin(17),
-    '2': GPIOPin(21),
-    '3': GPIOPin(22),
+    'Telescope': GPIOPin(17),
+    'Pixar': GPIOPin(21),
+    'Fountain': GPIOPin(22),
 }
 state_cycle = cycle(['on', 'off'])
 
@@ -22,9 +22,11 @@ def update_lamp(channel=[], state=None):
     if channel == 'all':
         channel = on_pins.keys()
     elif channel:
-        channel = list(channel)
+        channel = [channel]
 
     for c in channel:
+        if c not in on_pins.keys():
+            continue
         if state == 'on':
             on_pins[c].set(1)
             time.sleep(.2)
@@ -45,4 +47,5 @@ def update_lamp(channel=[], state=None):
     return render_template('main.html', **template_data)
 
 if __name__ == "__main__":
+    #app.debug = True
     app.run(host='0.0.0.0', port=80)
